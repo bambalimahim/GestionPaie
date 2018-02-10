@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition >
+	<h:dataTable id="clients" value="#{employeBean.employes}" var="c" border="1" style="width: 611px; height: 94px; " >
+		<h:column id="column1">
+			<f:facet name="header">
+				<h:outputText value="ID"/>
+			</f:facet>
+			<h:commandLink action="#{employeBean.deleteEmploye()}" >
+				<f:setPropertyActionListener value="#{c}" target="#{employeBean.employe}" />
+				<h:outputText value="#{c.idEmploye}"/>	
+				<f:ajax execute="@this" render="clients"/> 
+			</h:commandLink>
+		</h:column>
+		<h:column id="column2">
+			<f:facet name="header">
+				<h:outputText value="Nom"/>
+			</f:facet>
+			<h:outputText value="#{c.nom}"/>
+		</h:column>
+		<h:column id="column3">
+			<f:facet name="header">
+				<h:outputText value="Prenom"/>
+			</f:facet>
+			<h:outputText value="#{c.prenom}"/>
+		</h:column>
+		<h:column id="column4">
+			<f:facet name="header">
+				<h:outputText value="Adresse"/>
+			</f:facet>
+			<h:outputText value="#{c.adresse}"/>
+		</h:column>
+		<h:column id="column5">
+			<f:facet name="header">
+				<h:outputText value="Date Embauche"/>
+			</f:facet>
+			<h:outputText value="#{c.dateEmbauche}"/>
+		</h:column>
+		<h:column id="column6">
+			<f:facet name="header">
+				<h:outputText value="Salaire Base"/>
+			</f:facet>
+			<h:outputText value="#{c.salaire}"/>
+		</h:column>
+		<h:column id="column7">
+			<f:facet name="header">
+				<h:outputText value="Telephone"/>
+			</f:facet>
+			<h:outputText value="#{c.telephone}"/>
+		</h:column>
+		<h:column id="column8">
+			<f:facet name="header">
+				<h:outputText value="Poste"/>
+			</f:facet>
+			<h:outputText value="#{c.poste}"/>
+		</h:column>
+		<h:column id="column9">
+			<f:facet name="header">
+				<h:outputText value="mod" />
+			</f:facet>
+			<h:commandButton value="mod">
+				<f:setPropertyActionListener value="#{c}" target="#{employeBean.employe}"/>
+				<f:ajax execute="@this" render="@form"/>
+			</h:commandButton>
+		</h:column>
+	</h:dataTable>
+	 <h:commandLink>
+        <p:graphicImage name="/images/pdf.png" />
+        <p:dataExporter type="pdf" target="clients" fileName="cars" encoding="UTF-8"/>
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/images/csv.png" />
+        <p:dataExporter type="csv" target="clients" fileName="cars"  encoding="UTF-8"/>
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/images/xml.png" />
+        <p:dataExporter type="xml" target="clients" fileName="cars" encoding="UTF-8"/>
+    </h:commandLink>
+</ui:composition>
+	
+</html>

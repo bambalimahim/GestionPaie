@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h:messages id="message" style="color:red"/>
+	<p:panelGrid border="1" columns="2" id="client">
+		<h:outputText value="Nom" />
+		<p:inputText value="#{employeBean.employe.nom}" label="Nom" required="true">
+			<f:validator validatorId="util.chaine" />
+		</p:inputText>
+		<h:outputText value="Prenom" />
+		<p:inputText value="#{employeBean.employe.prenom}" label="Prenom" required="true">
+			<f:validator validatorId="util.chaine" />
+		</p:inputText>
+		<h:outputText value="Adresse" />
+		<p:inputText value="#{employeBean.employe.adresse}" required="true" label="Adresse">
+			<f:validator validatorId="util.chaine" />
+		</p:inputText>
+		<h:outputText value="Telephone" />
+		<p:inputText value="#{employeBean.employe.telephone}" required="true" label="Telephone">
+			<f:validator validatorId="util.telephone" />
+		</p:inputText>
+		<h:outputText value="Genre" />
+		<h:selectOneMenu value="#{employeBean.employe.genre}">
+			<f:selectItem itemLabel="Masculin" itemValue="Masculin"/>
+			<f:selectItem itemLabel="Feminin" itemValue="Feminin"/>
+		</h:selectOneMenu>
+		<h:outputText value="Poste" />
+		<p:inputText value="#{employeBean.employe.poste}" required="true" label="Poste">
+			<f:validator validatorId="util.chaine" />
+		</p:inputText>
+		<h:outputText value="Date Embauche" />
+		<p:calendar value="#{employeBean.employe.dateEmbauche}"
+			required="true" label="Date Embauche">
+			<f:convertDateTime pattern="dd/MM/yy" />
+		</p:calendar>
+		<h:outputText value="Salaire Base" />
+		<p:inputText value="#{employeBean.employe.salaire}" required="true" label="Salaire Base"/>
+	</p:panelGrid>
+	<p:commandButton value="Enregister" action="#{employeBean.saveEmploye()}" update="client">
+		<f:ajax execute="@form" render="message"/>
+	</p:commandButton>
+</ui:composition>
+</html>

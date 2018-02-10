@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition >
+	<p:dataTable id="tbl" var="p" value="#{paimentBean.paiements}" paginator="true" rows="5"
+		editable="true" >
+ 
+ 		<p:column id="column1">
+			<f:facet name="header">
+				<h:outputText value="Numero"/>
+			</f:facet>
+			<h:commandLink action="#{paimentBean.deletePaiement}" >
+				<f:setPropertyActionListener value="#{p}" target="#{paimentBean.paiement}" />
+				<h:outputText value="#{p.idPaiement}"/>	
+				<f:ajax execute="@this" render="tbl"/> 
+			</h:commandLink>
+		</p:column>
+        <p:column id="column2">
+			<f:facet name="header">
+				<h:outputText value="Montant"/>
+			</f:facet>
+			<h:outputText value="#{p.montant}"/>
+		</p:column>
+		<p:column id="column3">
+			<f:facet name="header">
+				<h:outputText value="Date Paiement"/>
+			</f:facet>
+			<h:outputText value="#{p.datePaiement}"/>
+		</p:column>
+		<p:column id="column4">
+			<f:facet name="header">
+				<h:outputText value="Matricule"/>
+			</f:facet>
+			<h:outputText value="#{p.employe.idEmploye}"/>
+		</p:column>
+		<p:column id="column5">
+			<f:facet name="header">
+				<h:outputText value="Nom-Prenom"/>
+			</f:facet>
+			<h:outputText value="#{p.employe.nom} #{p.employe.prenom}"/>
+		</p:column>
+    </p:dataTable>
+    <p:commandLink>
+        <p:graphicImage name="/images/excel.png" />
+        <p:dataExporter type="xls" target="tbl" fileName="cars" encoding="UTF-8"/>
+    </p:commandLink>
+ 	
+    <h:commandLink>
+        <p:graphicImage name="/images/pdf.png" />
+        <p:dataExporter type="pdf" target="tbl" fileName="cars" encoding="UTF-8"/>
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/images/csv.png" />
+        <p:dataExporter type="csv" target="tbl" fileName="cars"  encoding="UTF-8"/>
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/images/xml.png" />
+        <p:dataExporter type="xml" target="tbl" fileName="cars" encoding="UTF-8"/>
+    </h:commandLink>
+</ui:composition>
+	
+</html>

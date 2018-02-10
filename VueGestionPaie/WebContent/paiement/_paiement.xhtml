@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h:messages id="message" style="color:red"/>
+	<p:panelGrid border="1" columns="2" id="paiement">
+		
+		<h:outputText value="Date Paiement" />
+		<p:calendar value="#{paimentBean.paiement.datePaiement}"
+			required="true" label="Date Paiement">
+			<f:convertDateTime pattern="dd/MM/yy" />
+		</p:calendar>
+		<h:outputText value="Salaire Base" />
+		<p:inputText value="#{paimentBean.paiement.montant}" required="true" label="Montant Salaire"/>
+		<h:outputText value="Id Salarie" />
+		<h:selectOneMenu value="#{paimentBean.paiement.employe}" converter="omnifaces.SelectItemsConverter">
+			<f:selectItem itemLabel="select One"/>
+			<f:selectItems value="#{employeBean.employes}" var="employe" itemLabel="#{employe.telephone}"
+			 itemValue="#{employe}"/>
+		</h:selectOneMenu>
+	</p:panelGrid>
+	<p:commandButton value="Enregister" action="#{paimentBean.savePaiement()}" update="paiement">
+		<f:ajax execute="@form" render="message"/>
+	</p:commandButton>
+</ui:composition>
+</html>
